@@ -723,7 +723,7 @@ textarea { resize: vertical; line-height: 1.55; }
   function open(r) {
     var t = todayISO(), d = diffDays(r.tempo, t);
     var isi = 'Yth. ' + r.pelanggan + ',\n\n' +
-      'Kami dari Mitrainet menyampaikan tagihan ' + r.no + (r.deskripsi ? ' (' + r.deskripsi + ')' : '') + ' sebesar ' + fmtRp(r.jumlah) + ' ';
+      'Kami menyampaikan tagihan ' + r.no + (r.deskripsi ? ' (' + r.deskripsi + ')' : '') + ' sebesar ' + fmtRp(r.jumlah) + ' ';
     if (d < 0) {
       isi += 'yang telah jatuh tempo pada ' + fmtTgl(r.tempo) + ' (' + (-d) + ' hari lalu). Mohon pembayaran dapat segera diselesaikan. ' +
         'Bila sudah membayar, mohon abaikan  ini dan kirimkan bukti transfernya.';
