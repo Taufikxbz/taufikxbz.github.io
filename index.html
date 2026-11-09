@@ -271,7 +271,7 @@ textarea { resize: vertical; line-height: 1.55; }
     <button class="linkbtn" id="btn-kosongkan" type="button">Kosongkan data contoh</button>
   </div>
 
-  <p class="status" id="" role="status" aria-live="polite" hidden></p>
+  <p class="status" id="pesan" role="status" aria-live="polite" hidden></p>
 
   <section class="ringkasan" aria-label="Ringkasan tagihan">
     <div class="lead">
@@ -335,16 +335,16 @@ textarea { resize: vertical; line-height: 1.55; }
   </form>
 </div>
 
-<!-- Dialog  penagihan -->
-<div class="overlay" id="ov-" hidden>
+<!-- Dialog pesan penagihan -->
+<div class="overlay" id="ov-pesan" hidden>
   <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="p-judul">
-    <h2 id="p-judul"> penagihan</h2>
-    <label class="vh" for="p-teks">Isi </label>
+    <h2 id="p-judul">Pesan penagihan</h2>
+    <label class="vh" for="p-teks">Isi pesan</label>
     <textarea id="p-teks" rows="10"></textarea>
-    <p class="dlg-info" id="p-info" role="status" aria-live="polite">Ubah isi  bila perlu, lalu salin.</p>
+    <p class="dlg-info" id="p-info" role="status" aria-live="polite">Ubah isi pesan bila perlu, lalu salin.</p>
     <div class="dlg-actions">
       <button class="btn" type="button" id="p-tutup">Tutup</button>
-      <button class="btn primary" type="button" id="p-salin">Salin </button>
+      <button class="btn primary" type="button" id="p-salin">Salin pesan</button>
     </div>
   </div>
 </div>
@@ -464,7 +464,7 @@ textarea { resize: vertical; line-height: 1.55; }
   function changed() { state.dirty = true; persist(); render(); }
 
   function setMsg(text, tone) {
-    var p = el('');
+    var p = el('pesan');
     if (!text) { p.hidden = true; p.textContent = ''; return; }
     p.className = 'status' + (tone ? ' ' + tone : '');
     p.textContent = text;
@@ -539,7 +539,7 @@ textarea { resize: vertical; line-height: 1.55; }
       } else {
         aksi = (r.status === 'Lunas'
           ? '<button class="mini" type="button" data-act="batal-lunas">Batalkan lunas</button>'
-          : '<button class="mini ok" type="button" data-act="lunas">Tandai lunas</button><button class="mini" type="button" data-act=""></button>') +
+          : '<button class="mini ok" type="button" data-act="lunas">Tandai lunas</button><button class="mini" type="button" data-act="pesan">Pesan</button>') +
           '<button class="mini" type="button" data-act="ubah">Ubah</button>' +
           '<button class="mini danger" type="button" data-act="hapus">Hapus</button>';
       }
@@ -625,8 +625,8 @@ textarea { resize: vertical; line-height: 1.55; }
       setMsg('Status ' + r.no + ' dikembalikan ke belum dibayar.', ''); changed();
     } else if (act === 'ubah') {
       ui.lastFocus = b; openForm(r.id);
-    } else if (act === '') {
-      ui.lastFocus = b; open(r);
+    } else if (act === 'pesan') {
+      ui.lastFocus = b; openPesan(r);
     } else if (act === 'hapus') {
       ui.confirmId = r.id; render();
     } else if (act === 'hapus-batal') {
@@ -646,13 +646,13 @@ textarea { resize: vertical; line-height: 1.55; }
     el(id).hidden = true;
     if (ui.lastFocus && document.contains(ui.lastFocus)) { try { ui.lastFocus.focus(); } catch (e) { /* abaikan */ } }
   }
-  ['ov-form', 'ov-'].forEach(function (id) {
+  ['ov-form', 'ov-pesan'].forEach(function (id) {
     el(id).addEventListener('mousedown', function (e) { if (e.target === el(id)) hideOv(id); });
   });
   document.addEventListener('keydown', function (e) {
     if (e.key !== 'Escape') return;
     if (!el('ov-form').hidden) hideOv('ov-form');
-    else if (!el('ov-').hidden) hideOv('ov-');
+    else if (!el('ov-pesan').hidden) hideOv('ov-pesan');
   });
 
   /* ---------- Form tambah / ubah ---------- */
@@ -719,14 +719,14 @@ textarea { resize: vertical; line-height: 1.55; }
     changed();
   });
 
-  /* ----------  penagihan ---------- */
-  function open(r) {
+  /* ---------- Pesan penagihan ---------- */
+  function openPesan(r) {
     var t = todayISO(), d = diffDays(r.tempo, t);
     var isi = 'Yth. ' + r.pelanggan + ',\n\n' +
-      'Kami menyampaikan tagihan ' + r.no + (r.deskripsi ? ' (' + r.deskripsi + ')' : '') + ' sebesar ' + fmtRp(r.jumlah) + ' ';
+      'Kami dari Mitrainet menyampaikan tagihan ' + r.no + (r.deskripsi ? ' (' + r.deskripsi + ')' : '') + ' sebesar ' + fmtRp(r.jumlah) + ' ';
     if (d < 0) {
       isi += 'yang telah jatuh tempo pada ' + fmtTgl(r.tempo) + ' (' + (-d) + ' hari lalu). Mohon pembayaran dapat segera diselesaikan. ' +
-        'Bila sudah membayar, mohon abaikan  ini dan kirimkan bukti transfernya.';
+        'Bila sudah membayar, mohon abaikan pesan ini dan kirimkan bukti transfernya.';
     } else if (d === 0) {
       isi += 'yang jatuh tempo hari ini, ' + fmtTgl(r.tempo) + '. Mohon pembayaran dapat dilakukan hari ini.';
     } else {
