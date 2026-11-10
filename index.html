@@ -722,13 +722,13 @@ textarea { resize: vertical; line-height: 1.55; }
   /* ---------- Pesan penagihan ---------- */
   function openPesan(r) {
     var t = todayISO(), d = diffDays(r.tempo, t);
-    var isi = 'Yth. ' + r.pelanggan + ',\n\n' +
-      'Kami dari Mitrainet menyampaikan tagihan ' + r.no + (r.deskripsi ? ' (' + r.deskripsi + ')' : '') + ' sebesar ' + fmtRp(r.jumlah) + ' ';
+    var isi = 'Yth. Bapak/Ibu ' + r.pelanggan + ',\n\n' +
+      'Kami dari Mitrainet menyampaikan tagihan pembayaran Wifi atas nama ' + r.pelanggan + (r.deskripsi ? ' (' + r.deskripsi + ')' : '') + ' sebesar ' + fmtRp(r.jumlah) + ' ';
     if (d < 0) {
       isi += 'yang telah jatuh tempo pada ' + fmtTgl(r.tempo) + ' (' + (-d) + ' hari lalu). Mohon pembayaran dapat segera diselesaikan. ' +
         'Bila sudah membayar, mohon abaikan pesan ini dan kirimkan bukti transfernya.';
     } else if (d === 0) {
-      isi += 'yang jatuh tempo hari ini, ' + fmtTgl(r.tempo) + '. Mohon pembayaran dapat dilakukan hari ini.';
+      isi += 'yang jatuh tempo hari ini, ' + fmtTgl(r.tempo) + '. Mohon pembayaran dapat dilakukan hari ini.\nUntuk memudahkan, pembayaran dapat dilakukan melalui transfer bank ke rekening berikut :\nBank : BRI\nNo. Rekening : 2147 0103 4745 507\nAtas Nama : Renanda Pratiwi ';
     } else {
       isi += 'yang akan jatuh tempo pada ' + fmtTgl(r.tempo) + ' (' + d + ' hari lagi). Mohon pembayaran dapat dilakukan sebelum tanggal tersebut.';
     }
