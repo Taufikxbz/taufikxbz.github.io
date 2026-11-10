@@ -725,12 +725,12 @@ textarea { resize: vertical; line-height: 1.55; }
     var isi = 'Yth. Bapak/Ibu ' + r.pelanggan + ',\n\n' +
       'Kami dari Mitrainet menyampaikan tagihan pembayaran Wifi atas nama ' + r.pelanggan + (r.deskripsi ? ' (' + r.deskripsi + ')' : '') + ' sebesar ' + fmtRp(r.jumlah) + ' ';
     if (d < 0) {
-      isi += 'yang telah jatuh tempo pada ' + fmtTgl(r.tempo) + ' (' + (-d) + ' hari lalu). Mohon pembayaran dapat segera diselesaikan. ' +
-        'Bila sudah membayar, mohon abaikan pesan ini dan kirimkan bukti transfernya.';
+      isi += 'yang telah jatuh tempo pada ' + fmtTgl(r.tempo) + ' (' + (-d) + ' hari lalu). Mohon pembayaran dapat segera diselesaikan.\nUntuk memudahkan, pembayaran dapat dilakukan melalui transfer bank ke rekening berikut :\nBank : BRI\nNo. Rekening : 2147 0103 4745 507\nAtas Nama : Renanda Pratiwi ' +
+        'Bila sudah membayar, mohon kirimkan bukti transfernya.';
     } else if (d === 0) {
-      isi += 'yang jatuh tempo hari ini, ' + fmtTgl(r.tempo) + '. Mohon pembayaran dapat dilakukan hari ini.\nUntuk memudahkan, pembayaran dapat dilakukan melalui transfer bank ke rekening berikut :\nBank : BRI\nNo. Rekening : 2147 0103 4745 507\nAtas Nama : Renanda Pratiwi \nBila sudah membayar, mohon abaikan pesan ini dan kirimkan bukti transfernya.';
+      isi += 'yang jatuh tempo hari ini, ' + fmtTgl(r.tempo) + '. Mohon pembayaran dapat dilakukan hari ini.\nUntuk memudahkan, pembayaran dapat dilakukan melalui transfer bank ke rekening berikut :\nBank : BRI\nNo. Rekening : 2147 0103 4745 507\nAtas Nama : Renanda Pratiwi \nBila sudah membayar, mohon kirimkan bukti transfernya.';
     } else {
-      isi += 'yang akan jatuh tempo pada ' + fmtTgl(r.tempo) + ' (' + d + ' hari lagi). Mohon pembayaran dapat dilakukan sebelum tanggal tersebut.\nUntuk memudahkan, pembayaran dapat dilakukan melalui transfer bank ke rekening berikut :\nBank : BRI\nNo. Rekening : 2147 0103 4745 507\nAtas Nama : Renanda Pratiwi \nBila sudah membayar, mohon abaikan pesan ini dan kirimkan bukti transfernya.';
+      isi += 'yang akan jatuh tempo pada ' + fmtTgl(r.tempo) + ' (' + d + ' hari lagi). Mohon pembayaran dapat dilakukan sebelum tanggal tersebut.\nUntuk memudahkan, pembayaran dapat dilakukan melalui transfer bank ke rekening berikut :\nBank : BRI\nNo. Rekening : 2147 0103 4745 507\nAtas Nama : Renanda Pratiwi \nBila sudah membayar, mohon kirimkan bukti transfernya.';
     }
     isi += '\n\nTerima kasih atas kerja samanya.';
     el('p-judul').textContent = 'Pesan penagihan · ' + r.no;
